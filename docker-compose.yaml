@@ -1,6 +1,8 @@
 volumes:
-  var_data:
+  var_asterisk_data:
   etc_data:
+  logs_asterisk_data:
+  www_data:
 
 networks:
   defaultnet:
@@ -29,8 +31,11 @@ services:
       DBUSER: asterisk
       DBPORT: 3306
     volumes:
-      - var_data:/var
+      - var_asterisk_data:/var/lib/asterisk
       - etc_data:/etc
+      - logs_asterisk_data:/var/log/asterisk
+      - www_data:/var/www/html
+      - ./records:/var/spool/asterisk/monitor
     networks:
       defaultnet:
         ipv4_address: 172.18.0.20

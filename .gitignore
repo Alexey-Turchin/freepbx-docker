@@ -21,3 +21,7 @@ source/*.tgz
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# records
+records/*
+!records/.gitkeep
