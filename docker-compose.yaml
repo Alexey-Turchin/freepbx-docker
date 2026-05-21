@@ -46,6 +46,13 @@ services:
       - "5060:5060/udp"
     secrets:
       - freepbxuser_password
+    ulimits:
+      core:
+        soft: -1
+        hard: -1
+      memlock:
+        soft: -1
+        hard: -1
 
   fail2ban:
     restart: unless-stopped
