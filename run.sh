@@ -68,8 +68,11 @@ elif [[  "$*" == *"--clean-all"*  ]]; then
   # DB is external (Azure) - no local db container to remove
   sudo docker container stop freepbx-docker-freepbx-1 && sudo docker container rm freepbx-docker-freepbx-1
   sudo docker container stop fail2ban && sudo docker container rm fail2ban
-  sudo docker volume rm freepbx-docker_var_data
+  sudo docker volume rm freepbx-docker_var_asterisk_data
   sudo docker volume rm freepbx-docker_etc_data
+  sudo docker volume rm freepbx-docker_logs_asterisk_data
+  sudo docker volume rm freepbx-docker_www_data
+  sudo docker volume rm freepbx-docker_fail2ban_data
   # mysql_data volume removed (DB is external)
   sudo docker network rm freepbx-docker_defaultnet
 
