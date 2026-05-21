@@ -44,10 +44,10 @@ sudo systemctl status netfilter-persistent
 ```
 
 ## Usage
-1. Create required passwords:
+Create required passwords:
 ```bash
-# for MySQL root user
-printf "yourstrongmysqlfreepbxuserpassword" > freepbxuser_password.txt
+# for MySQL user
+printf "mysql_password" > freepbxuser_password.txt
 
 # Set proper file permissions
 chmod 600 freepbxuser_password.txt
@@ -64,26 +64,29 @@ Go to the Azure Portal and change:
 `sql_generate_invisible_primary_key` = OFF  
 
 ## Run the Compose project and Install FreePBX:
+Run Containers
 ```bash
-# Run Containers
-sudo bash run.sh
-
-# Optional, If you want to override the default RTP port range (10000-20000):
-sudo bash run.sh --rtp 10000-20000
+bash run.sh
+```
+OPTIONAL, If you want to override the default RTP port range (10000-20000):
+```bash
+bash run.sh --rtp 10000-20000
 # NOTE
 # If you run the script with the default RTP range 10000-20000 and later rerun it with a different range, the iptables rules from the previous range remain in place and you have to delete those rules manually before or after applying the new range.
-
-# Install Freepbx
-sudo bash run.sh --install-freepbx
-
-# Optional, clean up containers, network and volumes
-sudo bash run.sh --clean-all
+```
+Install Freepbx (Only first time)
+```bash
+bash run.sh --install-freepbx
+```
+OPTIONAL, clean up containers, network and volumes
+```bash
+bash run.sh --clean-all
 ```
 
 ## TLS support using Let's Encrypt DNS challenge
 ```bash
 # Make sure to have both 80 and 443 TCP ports allowed by the firewall and a valid DNS record A
-sudo docker compose exec -it freepbx certbot --apache -d your.domain.com --email your-email@email.com --agree-tos --redirect -n
+docker compose exec -it freepbx certbot --apache -d your.domain.com --email your-email@email.com --agree-tos --redirect -n
 ```
 
 Login to the web server's admin URL and start configuring the system!
