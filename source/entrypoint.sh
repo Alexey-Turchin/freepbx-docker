@@ -17,9 +17,6 @@ ensure_freepbx_cli_links
 # Start cron
 /usr/sbin/cron &
 
-# Start postfix email service
-service postfix start
-
 # Start Asterisk service
 /usr/local/src/freepbx/start_asterisk start &
 

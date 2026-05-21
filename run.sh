@@ -8,7 +8,7 @@ get_default_iface() {
 }
 
 freepbxip="172.18.0.20"
-rtp_port_range="16384-32767"
+rtp_port_range="10000-20000"
 DEFAULT_IFACE="$(get_default_iface)"
 
 if [[ -z "$DEFAULT_IFACE" ]]; then
@@ -56,7 +56,7 @@ fi
 
 # INSTALL FREEPBX
 if [[  "$*" == *"--install-freepbx"*  ]]; then
-    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=freepbxuser --dbpass="$(cat freepbxuser_password.txt)" --dbhost=db
+    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=asterisk --dbpass="$(cat freepbxuser_password.txt)" --dbhost=ontaxivoipmysql0.mysql.database.azure.com
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
@@ -65,12 +65,12 @@ elif [[  "$*" == *"--clean-all"*  ]]; then
     echo "Cleanup aborted."
     exit 0
   fi
-  sudo docker container stop freepbx-docker-db-1 && sudo docker container rm freepbx-docker-db-1
+  # DB is external (Azure) - no local db container to remove
   sudo docker container stop freepbx-docker-freepbx-1 && sudo docker container rm freepbx-docker-freepbx-1
   sudo docker container stop fail2ban && sudo docker container rm fail2ban
   sudo docker volume rm freepbx-docker_var_data
   sudo docker volume rm freepbx-docker_etc_data
-  sudo docker volume rm freepbx-docker_mysql_data
+  # mysql_data volume removed (DB is external)
   sudo docker network rm freepbx-docker_defaultnet
 
 
@@ -103,11 +103,7 @@ else
         fi
 
         # Build and start the Compose services
-        sudo docker compose up -d && {
-          printf "Waiting for database readiness"
-          for _ in $(seq 1 10); do printf "."; sleep 1; done
-          echo " done"
-        }
+        sudo docker compose up -d
     fi
 
 fi

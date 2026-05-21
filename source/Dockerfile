@@ -19,8 +19,6 @@ RUN apt-get update && apt-get -y install \
   libxml2-dev uuid uuid-dev default-libmysqlclient-dev \
   lame ffmpeg mpg123 expect \
   # PHP 8.2 Installation
-  && echo "postfix postfix/mailname string freepbx.localdomain" | debconf-set-selections \
-  && echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections \
   && apt-get install -y apache2 mariadb-client \
   php8.2 php8.2-curl php8.2-cli \
   php8.2-common php8.2-mysql php8.2-gd php8.2-mbstring php8.2-intl \
@@ -30,7 +28,6 @@ RUN apt-get update && apt-get -y install \
   odbc-mariadb unixodbc \
   libical-dev libneon27-dev libsrtp2-dev libspandsp-dev libtool-bin \
   nodejs npm ipset iptables php-soap \
-  postfix libsasl2-modules mailutils \
   certbot python3-certbot-apache logrotate
 
 # Download and build Asterisk directly in this stage
@@ -82,12 +79,10 @@ RUN set -eux \
 
 COPY odbc/odbcinst.ini /etc/odbcinst.ini
 COPY odbc/odbc.ini /etc/odbc.ini
-COPY postfix/main.cf /etc/postfix/main.cf
 COPY logrotate/asterisk /etc/logrotate.d/asterisk
 COPY entrypoint.sh entrypoint.sh
 
-RUN sed -i "s|^smtp_sasl_password_maps.*|smtp_sasl_password_maps = texthash:/run/secrets/postfix_sasl_passwd|" /etc/postfix/main.cf \
-  && mkdir -p /var/log/asterisk \
+RUN mkdir -p /var/log/asterisk \
   && touch /var/log/asterisk/full \
   && chown -R asterisk:asterisk /var/log/asterisk
 
