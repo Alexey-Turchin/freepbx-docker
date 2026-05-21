@@ -41,6 +41,7 @@ sudo apt-get install -y iptables-persistent
 sudo systemctl enable netfilter-persistent
 sudo systemctl restart netfilter-persistent
 sudo systemctl status netfilter-persistent
+```
 
 ## Usage
 1. Create required passwords:
