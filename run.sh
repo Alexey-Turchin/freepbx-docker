@@ -56,7 +56,7 @@ fi
 
 # INSTALL FREEPBX
 if [[  "$*" == *"--install-freepbx"*  ]]; then
-    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=asterisk --dbpass="$(cat freepbxuser_password.txt)" --dbhost=ontaxivoipmysql0.mysql.database.azure.com
+    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=asterisk --dbpass="$(cat secrets/freepbxuser_password.txt)" --dbhost=ontaxivoipmysql0.mysql.database.azure.com
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
