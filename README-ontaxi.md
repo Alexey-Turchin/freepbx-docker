@@ -64,7 +64,7 @@ Go to the Azure Portal and change:
 `sql_generate_invisible_primary_key` = OFF  
 
 ## Run the Compose project and Install FreePBX:
-Run Containers
+### Run Containers
 ```bash
 bash run.sh
 ```
@@ -74,7 +74,7 @@ bash run.sh --rtp 10000-20000
 # NOTE
 # If you run the script with the default RTP range 10000-20000 and later rerun it with a different range, the iptables rules from the previous range remain in place and you have to delete those rules manually before or after applying the new range.
 ```
-Install Freepbx (Only first time)
+### Install Freepbx (Only first time)
 ```bash
 bash run.sh --install-freepbx
 ```
