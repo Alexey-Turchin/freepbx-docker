@@ -19,8 +19,11 @@ secrets:
 
 services:
   freepbx:
+    build: 
+      context: ./source
+      dockerfile: Dockerfile
+    image: devart-freepbx:latest
     restart: always
-    image: escomputers/freepbx:17-nofail2ban
     environment:
       DBHOST: ontaxivoipmysql0.mysql.database.azure.com
       DBUSER: asterisk
