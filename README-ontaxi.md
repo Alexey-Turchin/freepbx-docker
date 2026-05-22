@@ -19,11 +19,13 @@ Upon starting this multi-container application, it will give you a turnkey PBX s
 ### Ports
 The following ports are exposed via Docker.
 
-| Port              | Description |
-| ----------------- | ----------- |
-| `80/tcp`          | HTTP        |
-| `443/tcp`         | HTTPS       |
-| `5060/udp`        | PJSIP       |
+| Port              | Description  |
+| ----------------- | ------------ |
+| `80/tcp`          | HTTP         |
+| `443/tcp`         | HTTPS        |
+| `5038/tcp`        | AMI          |
+| `5060/udp`        | PJSIP        |
+| `8088/tcp`        | Asterisk REST|
 
 RTP ports e.g. `10000-20000/udp` require a particular configuration in order to be
 properly exposed.\
