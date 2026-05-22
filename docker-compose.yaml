@@ -44,6 +44,7 @@ services:
       - "80:80/tcp"
       - "443:443/tcp"
       - "5060:5060/udp"
+      - "8088:8088/tcp"
     secrets:
       - freepbxuser_password
     ulimits:
