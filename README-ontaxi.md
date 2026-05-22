@@ -47,7 +47,7 @@ sudo systemctl status netfilter-persistent
 Create required passwords:
 ```bash
 # for MySQL user
-printf "mysql_password" > freepbxuser_password.txt
+printf "mysql_password" > secrets/freepbxuser_password.txt
 
 # Set proper file permissions
 chmod 600 freepbxuser_password.txt

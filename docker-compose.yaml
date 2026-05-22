@@ -25,7 +25,7 @@ services:
     build: 
       context: ./source
       dockerfile: Dockerfile
-    image: devart-freepbx:latest
+    image: ontaxi-freepbx:latest
     restart: always
     environment:
       DBHOST: ontaxivoipmysql0.mysql.database.azure.com

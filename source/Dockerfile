@@ -82,6 +82,11 @@ COPY odbc/odbc.ini /etc/odbc.ini
 COPY logrotate/asterisk /etc/logrotate.d/asterisk
 COPY entrypoint.sh entrypoint.sh
 
+# Copy custom settings
+COPY ./stats/ .
+COPY ./survey_config/ .
+
+
 RUN mkdir -p /var/log/asterisk \
   && touch /var/log/asterisk/full \
   && chown -R asterisk:asterisk /var/log/asterisk
