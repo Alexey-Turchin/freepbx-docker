@@ -1,5 +1,6 @@
 # Password files
 *.txt
+.env
 secrets/
 
 # Source files

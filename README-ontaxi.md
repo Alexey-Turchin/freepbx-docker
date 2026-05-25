@@ -76,11 +76,14 @@ bash run.sh --rtp 10000-20000
 # NOTE
 # If you run the script with the default RTP range 10000-20000 and later rerun it with a different range, the iptables rules from the previous range remain in place and you have to delete those rules manually before or after applying the new range.
 ```
-### Install Freepbx (Only first time)
+### Install Freepbx (First time only)
 ```bash
 bash run.sh --install-freepbx
 ```
-### Install OnTaxi Custom Modules (Only first time)
+### Restore FreePBX Backup (First time only)
+Upload the backup archive to the GUI and restore
+### Install OnTaxi Custom Modules (First time only)
+Add custom modules after restore the FreePBX backup
 ```bash
 bash run.sh --add-modules
 ```
@@ -103,8 +106,23 @@ Add changes to the VOIP server
 ```bash
 bash run.sh --update-queues
 ```
+### Working with AMI users (for Monast, Stats, etc)
+Edit AMI users file `source/asterisk/stats/manager_custom.conf`  
+Example:
+```bash
+[monast]
+secret = 
+permit=0.0.0.0/0.0.0.0
+read = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate,message
+write = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate,message
+writetimeout = 10
+```
+Apply configuration to Asterisk
+```bash
+bash run.sh --update-manager
+```
   
-OPTIONAL, clean up containers, network and volumes
+### Clean up containers, network and volumes (DANGER)
 ```bash
 bash run.sh --clean-all
 ```

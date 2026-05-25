@@ -73,7 +73,9 @@ elif [[  "$*" == *"--update-queues"*  ]]; then
 
 # Update Manager Config
 elif [[  "$*" == *"--update-manager"*  ]]; then
+  source .env
   sudo docker compose cp ./source/asterisk/stats/manager_custom.conf freepbx:/etc/asterisk/manager_custom.conf
+  sudo docker compose exec freepbx sed -i "/\[monast\]/,/^\[/{s/secret = .*/secret = ${MONAST_PASSW}/}" /etc/asterisk/manager_custom.conf
   sudo docker compose exec freepbx fwconsole reload
 
 # CLEAN
