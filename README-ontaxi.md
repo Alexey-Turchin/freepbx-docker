@@ -84,11 +84,6 @@ bash run.sh --install-freepbx
 ```bash
 bash run.sh --add-modules
 ```
-  
-OPTIONAL, clean up containers, network and volumes
-```bash
-bash run.sh --clean-all
-```
 
 ### Working with Queues
 Edit queue file `source/asterisk/survey_configs/queues_post_custom.conf`
@@ -108,7 +103,12 @@ Add changes to the VOIP server
 ```bash
 bash run.sh --update-queues
 ```
-
+  
+OPTIONAL, clean up containers, network and volumes
+```bash
+bash run.sh --clean-all
+```
+  
 ## TLS support using Let's Encrypt DNS challenge
 ```bash
 # Make sure to have both 80 and 443 TCP ports allowed by the firewall and a valid DNS record A
