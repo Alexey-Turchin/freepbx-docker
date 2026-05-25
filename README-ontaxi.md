@@ -80,9 +80,33 @@ bash run.sh --rtp 10000-20000
 ```bash
 bash run.sh --install-freepbx
 ```
+### Install OnTaxi Custom Modules (Only first time)
+```bash
+bash run.sh --add-modules
+```
+  
 OPTIONAL, clean up containers, network and volumes
 ```bash
 bash run.sh --clean-all
+```
+
+### Working with Queues
+Edit queue file `source/asterisk/survey_configs/queues_post_custom.conf`
+```bash
+; Example for adding queue sip-users
+[98000](+)
+member=Local/9809@customer-survey-ivr/n,0,9809 Katerina Rakovets,hint:9809@ext-local
+
+[99000](+)
+member=Local/9907@customer-survey-ivr/n,0,9907 Svetlana Yakovleva,hint:9907@ext-local
+
+[12002](+)
+member=Local/9907@customer-survey-ivr/n,0,9907 Svetlana Yakovleva,hint:9907@ext-local
+```
+Push changes to the repository and pull on the server
+Add changes to the VOIP server
+```bash
+bash run.sh --update-queues
 ```
 
 ## TLS support using Let's Encrypt DNS challenge
