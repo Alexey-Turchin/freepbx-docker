@@ -127,6 +127,8 @@ bash run.sh --update-manager
 ```
   
 ### Clean up containers, network and volumes (DANGER)
+> [!CAUTION]
+> Removes all things about Freepbx
 ```bash
 bash run.sh --clean-all
 ```
