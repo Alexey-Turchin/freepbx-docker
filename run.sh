@@ -71,6 +71,11 @@ elif [[  "$*" == *"--update-queues"*  ]]; then
   sudo docker compose cp ./source/asterisk/survey_config/queues_post_custom.conf freepbx:/etc/asterisk/queues_post_custom.conf
   sudo docker compose exec freepbx fwconsole reload
 
+# Update Manager Config
+elif [[  "$*" == *"--update-manager"*  ]]; then
+  sudo docker compose cp ./source/asterisk/stats/manager_custom.conf freepbx:/etc/asterisk/manager_custom.conf
+  sudo docker compose exec freepbx fwconsole reload
+
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
   read -r -p "Are you sure you want to clean up everything? Data will be lost. (yes/no)? " confirmation
