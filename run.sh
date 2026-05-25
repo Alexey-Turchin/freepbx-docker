@@ -56,15 +56,17 @@ fi
 
 # INSTALL FREEPBX
 if [[  "$*" == *"--install-freepbx"*  ]]; then
-    sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=asterisk --dbpass="$(cat secrets/freepbxuser_password.txt)" --dbhost=ontaxivoipmysql0.mysql.database.azure.com
+  sudo docker compose exec -it -w /usr/local/src/freepbx freepbx php install -n --dbuser=asterisk --dbpass="$(cat secrets/freepbxuser_password.txt)" --dbhost=ontaxivoipmysql0.mysql.database.azure.com
+fi
 
 # Add Custom Modules
 if [[  "$*" == *"--add-modules"*  ]]; then
-  sudo docker compose exec -it -w cp /usr/local/src/extensions_custom.conf /etc/asterisk/ -f
-  sudo docker compose exec -it -w cp /usr/local/src/queues_post_custom.conf /etc/asterisk/ -f
-  sudo docker compose exec -it -w cp /usr/local/src/survey.php /var/lib/asterisk/agi-bin/survey.php
-  sudo docker compose exec -it -w sed -i 's/;queue_log => mysql,general/queue_log => odbc,asteriskcdrdb,queuelog/' /etc/asterisk/extconfig.conf
-  sudo docker compose exec -it -w fwconsole reload
+  sudo docker compose cp /usr/local/src/extensions_custom.conf /etc/asterisk/ -f
+  sudo docker compose cp /usr/local/src/queues_post_custom.conf /etc/asterisk/ -f
+  sudo docker compose cp /usr/local/src/survey.php /var/lib/asterisk/agi-bin/survey.php
+  sudo docker compose exec freepbx sed -i 's/;queue_log => mysql,general/queue_log => odbc,asteriskcdrdb,queuelog/' /etc/asterisk/extconfig.conf
+  sudo docker compose exec freepbx fwconsole reload
+fi
 
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
