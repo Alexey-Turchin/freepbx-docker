@@ -61,9 +61,9 @@ fi
 
 # Add Custom Modules
 if [[  "$*" == *"--add-modules"*  ]]; then
-  sudo docker compose cp /usr/local/src/extensions_custom.conf /etc/asterisk/ -f
-  sudo docker compose cp /usr/local/src/queues_post_custom.conf /etc/asterisk/ -f
-  sudo docker compose cp /usr/local/src/survey.php /var/lib/asterisk/agi-bin/survey.php
+  sudo docker compose exec freepbx cp /usr/local/src/extensions_custom.conf /etc/asterisk/extensions_custom.conf
+  sudo docker compose exec freepbx cp /usr/local/src/queues_post_custom.conf /etc/asterisk/queues_post_custom.conf
+  sudo docker compose exec freepbx cp /usr/local/src/survey.php /var/lib/asterisk/agi-bin/survey.php
   sudo docker compose exec freepbx sed -i 's/;queue_log => mysql,general/queue_log => odbc,asteriskcdrdb,queuelog/' /etc/asterisk/extconfig.conf
   sudo docker compose exec freepbx fwconsole reload
 fi
