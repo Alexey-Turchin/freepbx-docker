@@ -99,6 +99,12 @@ Option = 3
 ```
 
 ## Build the image from scratch:
+Create `.env` file with password variable  
+```bash
+DB_HOST=voipmysql0.mysql.database.azure.com
+DB_USER=asterisk
+```
+Build image
 ```bash
 docker compose build
 ```
