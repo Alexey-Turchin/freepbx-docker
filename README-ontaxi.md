@@ -117,6 +117,10 @@ read = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,
 write = system,call,log,verbose,command,agent,user,config,command,dtmf,reporting,cdr,dialplan,originate,message
 writetimeout = 10
 ```
+Create `.env` file with password variable  
+```bash
+MONAST_PASSW=secret_password
+```
 Apply configuration to Asterisk
 ```bash
 bash run.sh --update-manager
