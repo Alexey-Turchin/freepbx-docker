@@ -44,7 +44,39 @@ sudo systemctl enable netfilter-persistent
 sudo systemctl restart netfilter-persistent
 sudo systemctl status netfilter-persistent
 ```
+  
+## Settings for Azure Database
+Go to the Azure Portal and change:  
+`require_secure_transport` = OFF  
+`sql_generate_invisible_primary_key` = OFF  
+### Create databases for FreePBX
+Read `init.sql`
+Execute query on the db server:
+```sql
+-- Create asterisk database
+CREATE DATABASE IF NOT EXISTS asterisk;
+-- Create asteriskcdr database
+CREATE DATABASE IF NOT EXISTS asteriskcdrdb;
+```
+### Create database for Survey custom module
+Read `source/db/init-survey.sql`
+Execute query on the db server:
+```sql
+-- Create DB
+CREATE DATABASE IF NOT EXISTS asterisksurvey;
 
+-- Create table
+CREATE TABLE IF NOT EXISTS `survey` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `operator` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `queue` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `valuation` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+```
+  
 ## Usage
 Create required passwords:
 ```bash
@@ -54,16 +86,22 @@ printf "mysql_password" > secrets/freepbxuser_password.txt
 # Set proper file permissions
 chmod 600 freepbxuser_password.txt
 ```
+Change Database host in `source/odbc/odbc.ini`  
+Example
+```bash
+[MySQL-asteriskcdrdb]
+Description = MySQL connection to 'asteriskcdrdb' database
+Driver = MySQL
+Server = voipmysql0.mysql.database.azure.com
+Database = asteriskcdrdb
+Port = 3306
+Option = 3
+```
 
 ## Build the image from scratch:
 ```bash
 docker compose build
 ```
-
-## Settings for Azure Database
-Go to the Azure Portal and change:  
-`require_secure_transport` = OFF  
-`sql_generate_invisible_primary_key` = OFF  
 
 ## Run the Compose project and Install FreePBX:
 ### Run Containers

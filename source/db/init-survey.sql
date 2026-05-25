@@ -1,8 +1,8 @@
 -- Create DB
-CREATE DATABASE asterisksurvey;
+CREATE DATABASE IF NOT EXISTS asterisksurvey;
 
 -- Create table
-CREATE TABLE `survey` (
+CREATE TABLE IF NOT EXISTS `survey` (
   `id` int NOT NULL AUTO_INCREMENT,
   `num` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `operator` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,

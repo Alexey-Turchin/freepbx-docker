@@ -28,8 +28,8 @@ services:
     image: ontaxi-freepbx:latest
     restart: always
     environment:
-      DBHOST: ontaxivoipmysql0.mysql.database.azure.com
-      DBUSER: asterisk
+      DBHOST: ${DB_HOST}
+      DBUSER: ${DB_USER}
       DBPORT: 3306
     volumes:
       - var_asterisk_data:/var/lib/asterisk
