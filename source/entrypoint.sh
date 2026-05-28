@@ -20,4 +20,7 @@ ensure_freepbx_cli_links
 # Start Asterisk service
 /usr/local/src/freepbx/start_asterisk start &
 
+# Start heplify
+/usr/local/bin/heplify -i any -hs 172.16.0.4:9060 -hn voip0 -hi 1 -l error -dd -zf -t af_packet -m SIPRTCP &
+
 exec apache2ctl -D FOREGROUND

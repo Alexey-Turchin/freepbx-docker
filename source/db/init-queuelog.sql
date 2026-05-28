@@ -1,4 +1,4 @@
-CREATE TABLE `queuelog` (
+CREATE TABLE IF NOT EXISTS `queuelog` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `time` datetime NOT NULL,
   `callid` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',

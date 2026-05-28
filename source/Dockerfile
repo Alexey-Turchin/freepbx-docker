@@ -11,6 +11,9 @@ ARG ASTERISK_VERSION_TAG=21.10.2
 ARG FREEPBX_VERSION=17.0.21
 ARG FREEPBX_VERSION_TAG=17.0.2
 
+# Add Heplify repository
+RUN curl -s https://packagecloud.io/install/repositories/qxip/sipcapture/script.deb.sh?any=true | bash
+
 # Install requirements
 RUN apt-get update && apt-get -y install \
   build-essential pkg-config cron curl wget \
@@ -28,7 +31,7 @@ RUN apt-get update && apt-get -y install \
   odbc-mariadb unixodbc \
   libical-dev libneon27-dev libsrtp2-dev libspandsp-dev libtool-bin \
   nodejs npm ipset iptables php-soap \
-  certbot python3-certbot-apache logrotate
+  certbot python3-certbot-apache logrotate heplify
 
 # Download and build Asterisk directly in this stage
 RUN set -eux \
