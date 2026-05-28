@@ -78,6 +78,10 @@ elif [[  "$*" == *"--update-manager"*  ]]; then
   sudo docker compose exec freepbx sed -i "/\[monast\]/,/^\[/{s/secret = .*/secret = ${MONAST_PASSW}/}" /etc/asterisk/manager_custom.conf
   sudo docker compose exec freepbx fwconsole reload
 
+# Update Manager Config
+elif [[  "$*" == *"--start-heplify"*  ]]; then
+  docker compose exec -d freepbx /usr/local/bin/heplify -i any -hs 172.16.0.4:9060 -hn voip0 -hi 1 -l error -dd -zf -t af_packet -m SIPRTCP
+
 # CLEAN
 elif [[  "$*" == *"--clean-all"*  ]]; then
   read -r -p "Are you sure you want to clean up everything? Data will be lost. (yes/no)? " confirmation
