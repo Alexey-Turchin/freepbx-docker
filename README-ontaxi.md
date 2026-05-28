@@ -169,6 +169,15 @@ Apply configuration to Asterisk
 ```bash
 bash run.sh --update-manager
 ```
+### Heplify
+Settings for Heplify Agent `source/entrypoint.sh`
+```bash
+/usr/local/bin/heplify -i any -hs IP_HOMER:9060 -hn voip0 -hi 1 -l error -dd -zf -t af_packet -m SIPRTCP &
+```
+Manual Start
+```bash
+bash run.sh --start-heplify
+```
   
 ### Clean up containers, network and volumes (DANGER)
 > [!CAUTION]
