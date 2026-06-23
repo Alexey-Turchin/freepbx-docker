@@ -47,9 +47,6 @@ services:
       - "5060:5060/udp"
       - "5060:5060/tcp"
       - "8088:8088/tcp"
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
     secrets:
       - freepbxuser_password
     ulimits:
